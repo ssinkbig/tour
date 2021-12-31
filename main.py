@@ -2,11 +2,6 @@ import numpy as np
 
 n = np.int_(input("Input the number of teams: "))
 
-
-
-
-
-
 def probability(n):
      if np.log2(n) != np.int_(np.log2(n)):
         raise ValueError("Invalid Input. Please put powers of 2.") #Exception

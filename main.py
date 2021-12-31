@@ -74,3 +74,5 @@ def main(x, fin):
 
 
 print(table)
+
+#I did not call main as I know that the code is still unfinished.

@@ -50,24 +50,23 @@ def main(x, fin):
                  fin = np.append(fin, temp)
                  temp = np.empty(temp)
              return main(x-1, fin)
-         else:
-             prev = fin  #prev에 일단 저장 후 fin을 비움
-             fin = np.empty(fin)
-             for i in np.arange(len(prev)): #각 prev의 index마다. 여기서 index 0 : [A->B,B->A], 1 : [C->D,D->C], 2 : [E->F,F->E], 3: [G->H,H->G]
-                 tempProb = np._float(0)
-                 if(i%2 == 0):
-                     index1 = np._int(0)
-                     index2 = np._int(0)
-                     for h in np.arange(prev[i]):
-                         for a in np.arange(prev[i+1]):
-                         temp = np.append(temp, tempProb)
-                         tempProb = 0
-                 else:
-                     for h in np.arange(prev[i]):
-                         for a in np.arange(prev[i-1]):
-                             float += h*a
-                         temp = np.append(temp, tempProb)
-                         tempProb = 0
+         prev = fin  #prev에 일단 저장 후 fin을 비움
+         fin = np.empty(fin)
+         for i in np.arange(len(prev)): #각 prev의 index마다. 여기서 index 0 : [A->B,B->A], 1 : [C->D,D->C], 2 : [E->F,F->E], 3: [G->H,H->G]
+             tempProb = np._float(0)
+             if(i%2 == 0):
+                 index1 = np._int(0)
+                 index2 = np._int(0)
+                 for h in np.arange(prev[i]):
+                     for a in np.arange(prev[i+1]):
+                     temp = np.append(temp, tempProb)
+                     tempProb = 0
+             else:
+                 for h in np.arange(prev[i]):
+                     for a in np.arange(prev[i-1]):
+                         float += h*a
+                     temp = np.append(temp, tempProb)
+                     tempProb = 0
              return main(x-1, fin)
 
 

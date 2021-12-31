@@ -1,8 +1,12 @@
 #!/usr/bin/python3
 
 import numpy as np
+from pprint import pprint
+
+DEBUG = True
 
 def probability(n):
+     np.random.seed(1234)
      if np.log2(n) != np.int_(np.log2(n)):
         raise ValueError("Invalid Input. Please put powers of 2.") #Exception
      table = np.zeros((n, n))
@@ -17,60 +21,45 @@ def findProb(table, home, away):
         raise ValueError("Invalid Input. Please put another value")
      return table[away][home]
 
-def init_fin(n, table):
-    fin = np.array([])
-    temp = np.array([])
-    for i in np.arange(n):
-        if(i%2==0):
-            temp = np.append(temp, findProb(table, i,i+1))
-        else:
-            temp = np.append(temp, findProb(table, i,i-1))
-
-        fin = np.append(fin, temp)
-        temp = np.empty(temp)
-    return fin
-
 def main():
     # num_teams = np.int_(input("Input the number of teams: "))
     num_teams = 4
     table = probability(num_teams)
-
-    gamesPerTeam = np.power(2, num_teams - 1 - np.log2(num_teams))
-    prev = np.array([])
+    if DEBUG:
+      print("table:")
+      pprint(table)
 
     num_games_in_a_single_tournament = np.int_(np.log2(num_teams))
-    fin = init_fin(num_teams, table)
-    run_tournament(num_games_in_a_single_tournament,fin, prev)
-    print(table)
+    if DEBUG:
+      print("num_games_in_a_single_tournament", num_games_in_a_single_tournament)
 
-def run_tournament(x, fin, prev):
+    result = np.ones(num_teams)
+    if DEBUG:
+        print('result', result)
 
-     if x == 0:
-         return fin
+    games = []
+    result = []
+    for home_team in range(0,num_teams, 2):
+       away_team = home_team + 1
+       games.append((home_team, away_team))
+       result.append((0.0, 0.0))
 
-     prev = fin  #prev에 일단 저장 후 fin을 비움
-     fin = np.empty(fin)
-     for i in np.arange(len(prev)): #각 prev의 index마다. 여기서 index 0 : [A->B,B->A], 1 : [C->D,D->C], 2 : [E->F,F->E], 3: [G->H,H->G]
-         tempProb = np._float(0)
-         if(i%2 == 0):
-             index1 = np._int(0)
-             index2 = np._int(0)
-             for h in np.arange(prev[i]):
-                 for a in np.arange(prev[i+1]):
-                    temp = np.append(temp, tempProb)
-                 tempProb = 0
-         else:
-             for h in np.arange(prev[i]):
-                 for a in np.arange(prev[i-1]):
-                     float += h*a
-                     temp = np.append(temp, tempProb)
-                 tempProb = 0
-         return main(x-1, fin)
+    pprint(games)
 
+    run_tournament(games, result, table)
 
+def game_probablities(table, home, away):
+    return table[home][away], table[away][home]
 
+def run_tournament(games, results, table):
+    for game_i in range(len(games)):
+        game = game[game_i]
+        game_probablity = game_probablities(game[0], game[1])
+        game_result = results[game_i]
+        game_result[0] = game_probablity[0]
+        game_result[1] = game_probablity[1]
+       
 #I did not call main as I know that the code is still unfinished.
-
 
 if __name__ == "__main__":
     main()

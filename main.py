@@ -21,10 +21,9 @@ def probability(n):
 table = probability(n)
 
 def findProb(home, away):
-     if home != away:
-         return table[away][home]
-     else:
-         raise ValueError("Invalid Input. Please put another value")
+     if home == away:
+        raise ValueError("Invalid Input. Please put another value")
+     return table[away][home]
 
  #1st round : A vs B   C vs D   E vs F  G vs H
  #2nd round : [AB] vs [CD]    [EF] vs [GH]

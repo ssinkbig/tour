@@ -62,13 +62,13 @@ def main(x, fin):
                      index2 = np._int(0)
                      for h in np.arange(prev[i]):
                          for a in np.arange(prev[i+1]):
-                         #temp = np.append(temp, tempProb)
+                         temp = np.append(temp, tempProb)
                          tempProb = 0
                  else:
                      for h in np.arange(prev[i]):
                          for a in np.arange(prev[i-1]):
-                             #float += h*a
-                         #temp = np.append(temp, tempProb)
+                             float += h*a
+                         temp = np.append(temp, tempProb)
                          tempProb = 0
              return main(x-1, fin)
 

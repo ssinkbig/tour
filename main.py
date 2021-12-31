@@ -8,15 +8,14 @@ n = np.int_(input("Input the number of teams: "))
 
 
 def probability(n):
-     if np.log2(n) == np.int_(np.log2(n)):
-         table = np.zeros((n, n))
-         values = np.triu_indices(n, 1)
-         prob = np.random.rand(np.sum(np.arange(n)))
-         table[values] = prob
-         table[values[1], values[0]] = 1 - prob
-         return table
-     else:
-         raise ValueError("Invalid Input. Please put powers of 2.") #Exception
+     if np.log2(n) != np.int_(np.log2(n)):
+        raise ValueError("Invalid Input. Please put powers of 2.") #Exception
+     table = np.zeros((n, n))
+     values = np.triu_indices(n, 1)
+     prob = np.random.rand(np.sum(np.arange(n)))
+     table[values] = prob
+     table[values[1], values[0]] = 1 - prob
+     return table
 
 table = probability(n)
 
